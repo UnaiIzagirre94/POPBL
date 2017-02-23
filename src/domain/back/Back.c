@@ -26,6 +26,7 @@
 #include "display.h"
 #include "scheduler.h"
 #include "store.h"
+#include "Keyboard.h"
 #include "hw_abstraction.h"
 #include "Back.h"
 
@@ -105,6 +106,7 @@ void BACK_init(){
 	DISPLAY_init();
 	HW_ABSTRACTION_initTimer(10);
 	REFRESH_HW_init();
+	KEYBOARD_init();
 	BACK_initBack();
 	SCHEDULER_init();
 }

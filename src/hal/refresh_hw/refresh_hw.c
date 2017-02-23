@@ -22,6 +22,7 @@
  ***************************************************************************/
 #include "config.h"
 #include "Buttons_services.h"
+#include "keyboard.h"
 #include "Leds_services.h"
 #include "refresh_hw.h"
 
@@ -54,7 +55,12 @@
  **                      GLOBAL VARIABLES                                 **
  **                                                                       **
  ***************************************************************************/
-
+/**
+ * @brief received Needs to be a global variable, as it stores the last received number from the keyboard.
+ *
+ */
+int received = 0;
+int last = 0;
 /***************************************************************************
  **                                                                       **
  **                      EXPORTED FUNCTIONS                               **
@@ -71,6 +77,14 @@ int REFRESH_HW_refreshPosition(){
 
 	int ret = SITTING;
 
+	received = KEYBOARD_readString();
+	if((received != last) && (received > 0) && (received < 5)){ //para asegurarnos de que los datos se reciben son correctos y no basura
+		last = received;
+		xil_printf("\n\r Received from keyboard: %i", received);
+	}
+
+	//--Using buttons:
+	/*
 	if(BUTTONS_SERVICES_getState(0) == FALSE){
 		ret = SITTING;
 		if(BUTTONS_SERVICES_getState(1) == TRUE){
@@ -83,7 +97,27 @@ int REFRESH_HW_refreshPosition(){
 	}else{
 		ret = STANDING;
 	}
+	*/
+	//--Using Keyboard:
 
+	switch(last){
+
+	case 1:
+		ret = SITTING;
+		break;
+	case 2:
+		ret = SITTINGWRONG;
+		break;
+	case 3:
+		ret = MOVINGFAST;
+		break;
+	case 4:
+		ret = STANDING;
+		break;
+	default:
+		ret = SITTING;
+		break;
+	}
 	return ret;
 }
 
