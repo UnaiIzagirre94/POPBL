@@ -35,7 +35,7 @@ int main()
 	BACK_init();
 
 	//Create the tasks.
-	SCHEDULER_addTask( STATE_ANALYSE_task , 1, 1);      //Periodico = 1 (tarea periodica) / Delay = 10 = 10ms = 0,01s
+	SCHEDULER_addTask( STATE_ANALYSE_task , 1, 5);      //Periodico = 1 (tarea periodica) / Delay = 10 = 10ms = 0,01s //estaba en 1
 	SCHEDULER_addTask( STORE_DATA_storeInfo, 1, 10);    //Periodico = 1 (tarea periodica) / Delay = 10 = 100ms = 0,1s
 	SCHEDULER_addTask( VISUALIZE_DATA_visualize, 1, 50);//Periodico = 1 (tarea periodica) / Delay = 10 = 20ms = 0,02s
 

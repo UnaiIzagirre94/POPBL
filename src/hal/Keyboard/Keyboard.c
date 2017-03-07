@@ -103,16 +103,18 @@ int KEYBOARD_readString(){
  	int ret = 0;
  	int i = 0;
 
-	#if defined ZYNQ_7000
-		while(character !='\r'){
-			while (!XUartPs_IsReceiveData(UART_BASEADDR)){}
+	//#if defined ZYNQ_7000
+		//while(character !='\r'){
+			//while (!XUartPs_IsReceiveData(UART_BASEADDR)){}
+ 		if(XUartPs_IsReceiveData(UART_BASEADDR)){
 			character = XUartPs_ReadReg(UART_BASEADDR, XUARTPS_FIFO_OFFSET);
 			xil_printf("%c", character);
 			uartRead[i] = character;
-			i++;
-		}
-		uartRead[i] = '\0';
-	#endif
+			//i++;
+		//}
+		//uartRead[i] = '\0';
+ 		}
+	//#endif
  	sscanf(uartRead, "%i", &ret);
  	return ret;
  }

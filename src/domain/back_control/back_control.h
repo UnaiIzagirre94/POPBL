@@ -50,23 +50,11 @@ typedef struct {
 **                                                                       **
 ***************************************************************************/
 
-/**
-* @var backBone
-* @brief Is the state machine. Stores it's name, the current state of the user and the list of states in which it can be.
-*/
-TS_MACHINE backBone = { 0, "State_machine_backBone", SITTING , statesBackBone};
 
-/**
-* @var back_buffer
-* @brief Is the buffer where the current position of the user and the timestamp are stored.
-*/
-BACK back_buffer;
 
-/**
-* @var user_position
-* @brief Is the buffer where the current position of the user is stored.
-*/
-POSITION user_position = {SITTING};
+
+
+
 
 /***************************************************************************
 **                                                                       **
