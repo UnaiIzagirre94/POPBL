@@ -60,7 +60,7 @@
 
  static char strBig [MAXIMUM_ARRAY];
  static int indx = 0;
-
+ static int dataCounter = 0;
 /***************************************************************************
  **                                                                       **
  **                      EXPORTED FUNCTIONS                               **
@@ -88,9 +88,18 @@ void STORE_DATA_storeInfo(){
 			strBig[indx] = str[i];
 			indx++;
 		}
+		if(dataCounter < 3){
+			dataCounter++;
+
+		}else{
+			dataCounter = 0;
+			strBig[indx] = '\n';
+			indx++;
+		}
 	}else{
 		//If we reach the end of the buffer, we store the collected data in the SD card.
 		indx = 0;
+		dataCounter = 0;
 		BACK_storeState(strBig);
 	}
 }
