@@ -26,6 +26,7 @@
 #include "Display.h"
 #include "Leds_services.h"
 #include "refresh_hw.h"
+#include "Hw_abstraction.h"
 #include "back_control.h"
 
 
@@ -190,6 +191,7 @@ void BACK_CONTROL_getUserPosition(){
  * @par
  */
  void BACK_CONTROL_acc_standing_to_sitting(){
+	 HW_ABSTRACTION_initTimer(250);
 	 displayed = FALSE;
 	 back_buffer.data[0] = '0';
 	 BACK_setBack(back_buffer);
@@ -304,9 +306,12 @@ void BACK_CONTROL_getUserPosition(){
   * @todo Implement code to be executed while the user is sitting.
   */
  void BACK_CONTROL_do_sitting(){
+	 int leds = 7;
 
-
-   }
+	 if(TIME_SITTING < HW_ABSTRACTION_getTimerCount()){
+		 LEDS_SERVICES_changeState(leds);
+	 }
+  }
 
  /**
  * @brief Event of the state machine to check the transition from "standing" to "sitting"
@@ -342,6 +347,7 @@ void BACK_CONTROL_getUserPosition(){
   */
 
   void BACK_CONTROL_acc_sitting_to_sitting_wrong(){
+	  HW_ABSTRACTION_initTimer(250);
 	  displayed = FALSE;
 	  back_buffer.data[0] = '2';
 	  BACK_setBack(back_buffer);
@@ -431,7 +437,11 @@ void BACK_CONTROL_getUserPosition(){
    * @todo Implement code to be executed while the user is sitting wrong.
    */
   void BACK_CONTROL_do_sitting_wrong(){
+	  int leds = 7;
 
+	  if(TIME_SITTING_WRONG < HW_ABSTRACTION_getTimerCount()){
+	 		 LEDS_SERVICES_changeState(leds);
+	  }
   }
 
 
